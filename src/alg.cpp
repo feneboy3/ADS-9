@@ -19,20 +19,20 @@ Tree::~Tree() {
 
 void Tree::build(Node* current, std::vector<char> remaining) {
     if (remaining.empty()) {
-        return; 
+        return;
     }
-    
+
     for (size_t i = 0; i < remaining.size(); ++i) {
         Node* child = new Node(remaining[i]);
         current->children.push_back(child);
-        
+
         std::vector<char> next_remaining;
         for (size_t j = 0; j < remaining.size(); ++j) {
             if (i != j) {
                 next_remaining.push_back(remaining[j]);
             }
         }
-        
+
         build(child, next_remaining);
     }
 }
@@ -51,7 +51,7 @@ void dfsAll(Node* node, std::vector<char>& current_path,
         result.push_back(current_path);
         return;
     }
-    
+
     for (size_t i = 0; i < node->children.size(); ++i) {
         current_path.push_back(node->children[i]->value);
         dfsAll(node->children[i], current_path, result);
@@ -62,7 +62,7 @@ void dfsAll(Node* node, std::vector<char>& current_path,
 std::vector<std::vector<char>> getAllPerms(Tree& tree) {
     std::vector<std::vector<char>> result;
     if (!tree.root) return result;
-    
+
     std::vector<char> path;
     dfsAll(tree.root, path, result);
     return result;
@@ -71,7 +71,7 @@ std::vector<std::vector<char>> getAllPerms(Tree& tree) {
 void dfs1(Node* node, std::vector<char>& path, int target,
           int& current_count, std::vector<char>& result) {
     if (!result.empty()) return;
-    
+
     if (node->children.empty()) {
         current_count++;
         if (current_count == target) {
@@ -79,7 +79,7 @@ void dfs1(Node* node, std::vector<char>& path, int target,
         }
         return;
     }
-    
+
     for (size_t i = 0; i < node->children.size(); ++i) {
         path.push_back(node->children[i]->value);
         dfs1(node->children[i], path, target, current_count, result);
@@ -111,7 +111,7 @@ std::vector<char> getPerm2(Tree& tree, int num) {
 
     int total_elements = tree.root->children.size();
     int max_perms = getFact(total_elements);
-    
+
     if (num < 1 || num > max_perms) return result;
 
     int k = num - 1;
@@ -120,10 +120,10 @@ std::vector<char> getPerm2(Tree& tree, int num) {
     while (!current->children.empty()) {
         int L = current->children.size();
         int branch_size = getFact(L - 1);
-        
+
         int index = k / branch_size;
         k = k % branch_size;
-        
+
         current = current->children[index];
         result.push_back(current->value);
     }
