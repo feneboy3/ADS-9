@@ -7,20 +7,20 @@
 struct Node {
     char value;
     std::vector<Node*> children;
-
-    Node(char val) {
+    
+    explicit Node(char val) {
         value = val;
     }
 };
 
 class Tree {
-public:
+ public:
     Node* root;
-
-    Tree(std::vector<char> in);
+    
+    explicit Tree(std::vector<char> in);
     ~Tree();
 
-private:
+ private:
     void build(Node* current, std::vector<char> remaining);
     void destroy(Node* node);
 };
