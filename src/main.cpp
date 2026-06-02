@@ -27,33 +27,33 @@ int main() {
     std::cout << "\n\n";
 
     std::vector<int> sizes = {3, 4, 5, 6, 7, 8};
-    
+
     for (int n : sizes) {
         std::vector<char> test_in;
         for (int i = 0; i < n; ++i) {
             test_in.push_back('A' + i);
         }
-        
+
         Tree test_tree(test_in);
-        
-        int test_num = 1; 
+
+        int test_num = 1;
         for (int i = 1; i <= n; ++i) test_num *= i;
-        test_num = test_num - 1; 
+        test_num = test_num - 1;
 
         auto start1 = std::chrono::high_resolution_clock::now();
         getPerm1(test_tree, test_num);
         auto stop1 = std::chrono::high_resolution_clock::now();
         auto dur1 = std::chrono::duration_cast<std::chrono::nanoseconds>(
             stop1 - start1).count();
-        
+
         auto start2 = std::chrono::high_resolution_clock::now();
         getPerm2(test_tree, test_num);
         auto stop2 = std::chrono::high_resolution_clock::now();
         auto dur2 = std::chrono::duration_cast<std::chrono::nanoseconds>(
             stop2 - start2).count();
-        
-        std::cout << "N = " << n << "\t|" 
-             << " getPerm1: " << dur1 << " ns \t|" 
+
+        std::cout << "N = " << n << "\t|"
+             << " getPerm1: " << dur1 << " ns \t|"
              << " getPerm2: " << dur2 << " ns\n";
     }
 
